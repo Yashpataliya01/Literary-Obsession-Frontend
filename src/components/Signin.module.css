@@ -1,0 +1,173 @@
+.signin {
+  width: 100vw;
+  min-height: 610px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("https://img.freepik.com/premium-vector/woman-read-book-hammock-summer-rest-relaxation_81894-10514.jpg?w=1380");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.left, .right {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.left {
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.right {
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+.right h1 {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  color: rgb(49, 82, 139);
+}
+
+.right p {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  width: 80%;
+}
+
+.left h1 {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.input {
+  width: 60%;
+  height: 45px;
+  border-radius: 20px;
+  padding: 0 15px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.button {
+  width: 63%;
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.left h5{
+  width: 60%;
+  color: rgb(0, 0, 0);
+  font-weight: 200;
+  text-align: start;
+}
+.left span{
+  color: #007bff;
+  text-decoration: none;
+  text-decoration-line: none;
+}
+
+
+@media (max-width: 500px){
+  .signin {
+    width: 100vw;
+    min-height: 400px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("https://img.freepik.com/premium-vector/woman-read-book-hammock-summer-rest-relaxation_81894-10514.jpg?w=1380");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .left{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .left {
+    border-radius: 10px;
+  }
+  .right {
+    display: none;
+  }
+
+.left h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.input {
+  width: 90%;
+  height: 45px;
+  border-radius: 20px;
+  padding: 0 15px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.button {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.left h5{
+  width: 100%;
+  color: rgb(0, 0, 0);
+  font-weight: 200;
+  text-align: start;
+}
+.left span{
+  color: #007bff;
+  text-decoration: none;
+  text-decoration-line: none;
+}
+}

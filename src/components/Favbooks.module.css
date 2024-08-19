@@ -1,0 +1,98 @@
+.bookCard {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 20px;
+  overflow: hidden;
+}
+
+.bookCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.bookImage {
+  height: 300px;
+  object-fit: cover;
+  border-bottom: 1px solid #e0e0e0;
+  transition: transform 0.3s ease;
+}
+.bookImage:hover {
+  transform: scale(1.05);
+}
+
+.bookInfo {
+  padding: 15px;
+  text-align: center;
+}
+
+.bookTitle {
+  font-size: 1rem;
+  color: #333;
+  margin: 10px 0 5px 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.bookAuthor {
+  font-size: 0.9rem;
+  color: rgb(49, 82, 139);;
+  margin-bottom: 10px;
+  font-family: 'Arial', sans-serif;
+}
+
+.bookPrice {
+  font-size: 1.2rem;
+  color: #e74c3c;
+  margin-bottom: 15px;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.addToBagButton {
+  background-color: rgb(49, 82, 139);;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.addToBagButton:hover {
+  background-color: rgb(49, 82, 139);;
+  transform: scale(1.05);
+}
+
+.favButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+}
+
+.favButton i {
+  font-size: 1.2rem;
+  color: #e74c3c;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.favButton:hover i {
+  color: #c0392b;
+  transform: scale(1.2);
+}

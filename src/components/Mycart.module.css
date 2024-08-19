@@ -1,0 +1,114 @@
+.cartContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.cartItems {
+  flex: 2;
+}
+
+.cartTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.cartTable th, 
+.cartTable td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.bookRow {
+  vertical-align: top;
+}
+
+.bookImage {
+  width: 80px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.bookDetails {
+  padding-left: 10px;
+}
+
+.quantityControl {
+  display: flex;
+  align-items: center;
+}
+
+.quantityControl button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.removeButton {
+  background-color: transparent;
+  color: red;
+  border: 1px solid red;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.removeButton:hover {
+  background-color: red;
+  color: white;
+}
+
+.cartSummary {
+  flex: 1;
+  margin-left: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.promoSection {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.promoInput {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.promoButton {
+  background-color: black;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  border: none;
+}
+
+.summaryDetails p {
+  margin: 10px 0;
+}
+
+.summaryDetails h3 {
+  margin: 20px 0;
+  font-size: 1.5em;
+}
+
+.checkoutButton,
+.loginCheckoutButton {
+  width: 100%;
+  padding: 15px;
+  background-color: black;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.loginCheckoutButton {
+  background-color: #f0f0f0;
+  color: black;
+}

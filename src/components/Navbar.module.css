@@ -1,0 +1,259 @@
+.navbar {
+  background-color: #ffffff;
+  padding: 1rem;
+  height: 100px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: "Wire One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.navbarTop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navbarLogoIcons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 105px;
+}
+
+.navbarLogo a {
+  font-size: 3rem;
+  font-weight: bold;
+  color: rgb(49, 82, 139);
+  text-decoration: none;
+}
+
+
+.submit1 {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #333;
+  color: #ffffff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6.1vh;
+}
+.navbarIcons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.navbarIcons i {
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: rgb(49, 82, 139);
+}
+
+.cartlogo {
+  position: relative;
+}
+
+.cartcount {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: #ffffff;
+  border-radius: 50%;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+}
+.list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbarLinks {
+  width: 80%;
+  height: 7vh;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  padding-top: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.navbarLinks li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin: 0 2.6rem;
+}
+
+.navbarLinks a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+  transition: color 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbarLinks a:hover {
+  color: rgb(49, 82, 139);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    background-color: #ffffff;
+    padding: 1rem;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navbarLogo a {
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(49, 82, 139);
+    text-decoration: none;
+  }
+  
+  .navbarLogoIcons {
+    justify-content: space-between;
+  }
+  .submit2{
+    height: 33px;
+  }
+  .list{
+    margin-top: -20px;
+  }
+}
+@media (max-width: 550px) {
+  .navbar {
+    background-color: #ffffff;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navbarLogoIcons {
+    justify-content: space-between;
+    padding: 0px;
+  }
+  .submit2{
+    height: 33px;
+  }
+  .list{
+    margin-top: -20px;
+  }
+  .navbarIcons {
+    display: flex;
+    align-items: center;
+  }
+  .navbarLogo a {
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(49, 82, 139);
+    text-decoration: none;
+  }
+  
+  .navbarIcons i {
+    font-size: 1rem;
+    cursor: pointer;
+    color: rgb(49, 82, 139);
+  }
+}
+
+@media (max-width: 415px) {
+  .navbar {
+    background-color: #ffffff;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navbarLogoIcons {
+    justify-content: space-between;
+    padding: 0px;
+  }
+  .submit2{
+    height: 33px;
+  }
+  .list{
+    margin-top: -20px;
+  }
+  .navbarIcons {
+    display: flex;
+    align-items: center;
+  }
+  .navbarLogo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(49, 82, 139);
+    text-decoration: none;
+  }
+  
+  .navbarIcons i {
+    font-size: 1rem;
+    cursor: pointer;
+    color: rgb(49, 82, 139);
+  }
+
+}
+
+@media (max-width: 350px) {
+  .navbar {
+    background-color: #ffffff;
+    padding: 1rem;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  
+  .navbarLogoIcons {
+    justify-content: space-between;
+  }
+  .submit2{
+    height: 33px;
+  }
+  .list{
+    margin-top: -20px;
+  }
+  .navbarIcons {
+    display: flex;
+    align-items: center;
+  }
+  .navbarLogo a {
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgb(49, 82, 139);
+    text-decoration: none;
+  }
+  
+  .navbarIcons i {
+    font-size: 1rem;
+    cursor: pointer;
+    color: rgb(49, 82, 139);
+  }
+
+}

@@ -1,0 +1,80 @@
+.imgs {
+  height: 250px;
+  width: auto;
+  position: absolute;
+  top: 0;
+  right: 20px;
+  z-index: 1;
+}
+
+.about{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+.hero{
+  width: 100%;
+  background-image: url("./about.png");
+  min-height: 500px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.opacity{
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.1);
+  position: absolute;
+}
+.hero h1{
+  font-size: 8rem;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: rgb(49, 82, 139);
+  font-weight: 900;
+  z-index: 999;
+}
+.info{
+  width: 50%;
+  margin: 50px 0px;
+}
+.info p{
+  font-size: large;
+  text-align: justify;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 100;
+}
+@media (max-width: 768px) {
+  .imgs {
+    height: 250px;
+    left: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .imgs {
+    height: 250px;
+    left: 5px;
+  }
+}
+
+
+@media (max-width: 415px) {
+  .imgs {
+    height: 250px;
+  }
+}
+
+@media (max-width: 350px) {
+  .imgs {
+    display: none;
+  }
+}

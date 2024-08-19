@@ -1,0 +1,187 @@
+.contaner {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.innerdiv {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 5em 0em;
+  flex-wrap: wrap;
+}
+
+.book, .heading {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.heading {
+  gap: 1em;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.book .img {
+  width: 50%;
+  height: auto;
+  box-shadow: rgba(0, 0, 0, 0.4) -10px 8px 6px;
+}
+
+.heading h1 {
+  width: 100%;
+  color: rgb(49, 82, 139);
+  font-size: 3.5em;
+  text-align: start;
+  font-family: "Wire One", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 8rem;
+}
+
+.heading h2 {
+  width: 100%;
+  font-size: 2.5em;
+  text-align: start;
+}
+
+.heading h3 {
+  width: 100%;
+}
+
+.heading p {
+  width: 80%;
+  font-size: larger;
+  text-align: justify;
+}
+
+.buynou {
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background-color: #181717;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background-color: #fff;
+  color: #181717;
+  border: 1px solid;
+}
+
+.check {
+  fill: #fff;
+  margin-right: 0.5rem;
+}
+
+.button:hover .check {
+  fill: #181717;
+}
+.text {
+  margin-left: 0.5rem;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .contaner {
+    width: 100%;
+    overflow-x: hidden;
+  }
+  .innerdiv {
+    flex-direction: column;
+    align-items: center;
+    padding: 2em 0em;
+  }
+
+  .book, .heading {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .book .img {
+    width: 50%;
+    height: 50%;
+  }
+
+  .heading h1 {
+    font-size: 2.5em;
+    text-align: center;
+  }
+
+  .heading h2 {
+    text-align: center;
+    font-size: 2em;
+  }
+  .heading h3 {
+    width: 100%;
+    text-align: center;
+    color: rgb(170, 169, 169);
+  }
+  .heading p {
+    text-align: center;
+    font-size: medium;
+  }
+  .buynou{
+    width: 100%;
+    display: contents;
+  }
+
+  .button {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contaner {
+    width: 100%;
+    overflow-x: hidden;
+  }
+  .innerdiv {
+    padding: 1em 0em;
+  }
+
+  .book, .heading {
+    width: 100%;
+  }
+
+  .heading h1 {
+    font-size: 2em;
+  }
+
+  .heading h2 {
+    font-size: 1.5em;
+  }
+
+  .heading p {
+    font-size: small;
+    text-align: justify;
+  }
+  .button {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+}

@@ -1,0 +1,205 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+.leftColumn, .rightColumn {
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.leftColumn {
+  width: 60%;
+  background-color: white;
+  margin-right: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.rightColumn {
+  width: 40%;
+}
+
+h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #000000;
+}
+
+p, label {
+  font-size: 1rem;
+  color: #333;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  margin: 20px 0;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.input, .selectInput {
+  width: 100%;
+  padding: 12px;
+  margin: 5px 0;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input:focus, .selectInput:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.paymentMethod label {
+  margin-right: 15px;
+  font-size: 1.1rem;
+  color: #000000;
+}
+
+.placeOrderButton {
+  background-color: #000000;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 30px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.placeOrderButton:hover {
+  background-color: #000000;
+}
+
+.orderSummary {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.orderSummary .hh3{
+  font-family: "Wire One", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: xx-large;
+}
+.productInfo {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.productDetails {
+  margin-left: 15px;
+}
+.productInfo img{
+  width: 80px;
+  height: 100px;
+}
+
+.discountWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.discountInput {
+  width: calc(100% - 110px);
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.applyButton {
+  background-color: #000000;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.applyButton:hover {
+  background-color: #000000;
+}
+
+.totalSummary p{
+  font-size: 1em;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .leftColumn, .rightColumn {
+    width: 100%;
+    margin: 0;
+  }
+
+  .productInfo {
+    flex-direction: column;
+  }
+
+  .discountWrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.paypalOptions {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.paypalOption {
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.paypalOption:hover {
+  background-color: #93a5ef;
+}
+
+.selectedOption {
+  background-color: #93a5ef; /* This will be the color when an option is selected */
+}
+
+.optionImage {
+  width: 100px;
+  height: auto;
+}
+
+.paypalOptions img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
