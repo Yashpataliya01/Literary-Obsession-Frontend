@@ -22,6 +22,7 @@ function Signin() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userdata),
+        credentials: "include",
       });
       if (!res.ok) {
         const errorData = await res.json();
