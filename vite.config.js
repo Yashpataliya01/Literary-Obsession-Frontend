@@ -5,7 +5,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://literary-obsession-backend.vercel.app',
+        target: 'https://literary-obsession-backend-1.onrender.com/',
         secure: false,
       },
     },
