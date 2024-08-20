@@ -24,7 +24,7 @@ const AppProvider = ({ children }) => {
         const response = await fetch(`${apiUrl}/books/finduser`, {
           method: "GET",
         });
-        const userdata = await fetch(`${apiUrl}//auth/getuser`);
+        const userdata = await fetch(`${apiUrl}/auth/getuser`);
         const booksData = await response.json();
         const userData = await userdata.json();
         setUserData(userData);
