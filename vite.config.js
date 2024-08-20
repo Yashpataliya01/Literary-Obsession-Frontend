@@ -7,7 +7,6 @@ export default defineConfig({
       '/api': {
         target: 'https://literary-obsession-backend.vercel.app',
         secure: false,
-        changeOrigin: true,
       },
     },
   },
