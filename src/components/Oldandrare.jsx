@@ -36,43 +36,53 @@ function Oldandrare({ booktitle, name, stylees }) {
   });
 
   const addtofav = async (bookid, e) => {
-    try {
-      const response = await fetch(`${apiUrl}/function/addfav`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ bookid }),
-      });
+    if (localStorage.getItem("isLogin") === "true") {
+      try {
+        const response = await fetch(`${apiUrl}/function/addfav`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bookid }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const res = await response.json();
+        setFavcount(favcount + 1);
+      } catch (error) {
+        console.error("Error adding to favorites:", error);
       }
-
-      const res = await response.json();
-      setFavcount(favcount + 1);
-    } catch (error) {
-      console.error("Error adding to favorites:", error);
+    } else {
+      signout();
+      navigate("/signin");
     }
   };
 
   const removefav = async (bookid) => {
-    try {
-      const response = await fetch(`${apiUrl}/function/removefav`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ bookid }),
-      });
+    if (localStorage.getItem("isLogin") === "true") {
+      try {
+        const response = await fetch(`${apiUrl}/function/removefav`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bookid }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const res = await response.json();
+        setFavcount(favcount + 1);
+      } catch (error) {
+        console.error("Error removing to favorites:", error);
       }
-      const res = await response.json();
-      setFavcount(favcount + 1);
-    } catch (error) {
-      console.error("Error removing to favorites:", error);
+    } else {
+      signout();
+      navigate("/signin");
     }
   };
 

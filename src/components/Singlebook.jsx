@@ -8,7 +8,7 @@ function Singlebook({ Booksdata }) {
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
       : "/api";
-  const { favcount, setFavcount, favcart, setFavcart } = useContext(AppContext);
+  const { setFavcount, setFavcart } = useContext(AppContext);
   const [Books, setBooks] = useState([]);
 
   const fetchBooks = async () => {
@@ -147,7 +147,6 @@ function Singlebook({ Booksdata }) {
 
   useEffect(() => {
     fetchBooks();
-    console.log(Books, "books");
   }, [Booksdata]);
 
   return (
