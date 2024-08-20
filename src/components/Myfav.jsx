@@ -3,13 +3,17 @@ import styles from "./Myfav.module.css";
 import Myfavbook from "./Favbooks";
 
 function Myfav() {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const [Booksdata, setBooksdata] = useState([]);
   const [delet, setDelet] = useState(false);
 
   useEffect(() => {
     const fatchingdata = async () => {
       try {
-        const response = await fetch("/api/function/getfavbook", {
+        const response = await fetch(`${apiUrl}/function/getfavbook`, {
           method: "GET",
         });
         const user = await response.json();

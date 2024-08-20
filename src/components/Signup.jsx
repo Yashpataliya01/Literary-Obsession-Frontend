@@ -3,6 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Signup.module.css";
 
 function Signup() {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const navigate = useNavigate();
   const handlesignup = async (e) => {
     e.preventDefault();
@@ -13,7 +17,7 @@ function Signup() {
       password: formdata.get("password"),
     };
     try {
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch(`${apiUrl}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userdata),

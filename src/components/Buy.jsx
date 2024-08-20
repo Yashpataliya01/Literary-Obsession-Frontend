@@ -4,6 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Buy.module.css";
 
 function Buy() {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const Navigate = useNavigate();
   const [selectedPayment, setSelectedPayment] = useState("Credit Card");
   const { userdata } = useContext(AppContext);
@@ -65,7 +69,7 @@ function Buy() {
     setBuyed([...buyed, ...newBuyedData]);
     console.log("Order placed with the following books:", newBuyedData);
     try {
-      const response = await fetch("/api/function/updatebuyed", {
+      const response = await fetch(`${apiUrl}/function/updatebuyed`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

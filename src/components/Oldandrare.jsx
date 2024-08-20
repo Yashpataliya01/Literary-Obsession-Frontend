@@ -14,6 +14,10 @@ import styles from "./Oldandrare.module.css";
 gsap.registerPlugin(ScrollTrigger);
 
 function Oldandrare({ booktitle, name, stylees }) {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const { favcount, setFavcount } = useContext(AppContext);
 
   useGSAP(() => {
@@ -33,7 +37,7 @@ function Oldandrare({ booktitle, name, stylees }) {
 
   const addtofav = async (bookid, e) => {
     try {
-      const response = await fetch("/api/function/addfav", {
+      const response = await fetch(`${apiUrl}/function/addfav`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +58,7 @@ function Oldandrare({ booktitle, name, stylees }) {
 
   const removefav = async (bookid) => {
     try {
-      const response = await fetch("/api/function/removefav", {
+      const response = await fetch(`${apiUrl}/function/removefav`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

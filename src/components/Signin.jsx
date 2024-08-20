@@ -4,6 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Signin.module.css";
 
 function Signin() {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const navigate = useNavigate();
   const { setIslogin } = useContext(AppContext);
   const handlesignin = async (e) => {
@@ -14,7 +18,7 @@ function Signin() {
       password: formdata.get("password"),
     };
     try {
-      const res = await fetch("/api/auth/signin", {
+      const res = await fetch(`${apiUrl}/auth/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userdata),

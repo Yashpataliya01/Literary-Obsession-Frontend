@@ -3,6 +3,10 @@ import styles from "./Mycart.module.css";
 import { Link } from "react-router-dom";
 
 function Mycart({ Booksdata, setDelet }) {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const [bookprices, setBookprices] = React.useState(0);
   const [booktax, setBooktax] = React.useState(0);
   const [quantities, setQuantities] = React.useState({});
@@ -29,7 +33,7 @@ function Mycart({ Booksdata, setDelet }) {
   const removecart = async (bookId) => {
     setDelet(false);
     try {
-      const response = await fetch("/api/function/removecart", {
+      const response = await fetch(`${apiUrl}/function/removecart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

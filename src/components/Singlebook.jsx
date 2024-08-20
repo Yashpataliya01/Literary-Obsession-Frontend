@@ -4,15 +4,19 @@ import { AppContext } from "../Context/Bookdata";
 import styles from "./Singlebook.module.css";
 
 function Singlebook({ Booksdata }) {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const { favcount, setFavcount, favcart, setFavcart } = useContext(AppContext);
   const [Books, setBooks] = useState([]);
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch("/api/books/finduser", {
+      const response = await fetch(`${apiUrl}/books/finduser`, {
         method: "GET",
       });
-      const userdata = await fetch("/api/auth/getuser");
+      const userdata = await fetch(`${apiUrl}/auth/getuser`);
       const booksData = await response.json();
       const userData = await userdata.json();
 
@@ -43,7 +47,7 @@ function Singlebook({ Booksdata }) {
 
   const addtofav = async (bookid) => {
     try {
-      const response = await fetch("/api/function/addfav", {
+      const response = await fetch(`${apiUrl}/function/addfav`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +72,7 @@ function Singlebook({ Booksdata }) {
 
   const removefav = async (bookid) => {
     try {
-      const response = await fetch("/api/function/removefav", {
+      const response = await fetch(`${apiUrl}/function/removefav`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +97,7 @@ function Singlebook({ Booksdata }) {
 
   const addtocart = async (bookid) => {
     try {
-      const response = await fetch("/api/function/addtocart", {
+      const response = await fetch(`${apiUrl}/function/addtocart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +122,7 @@ function Singlebook({ Booksdata }) {
 
   const removecart = async (bookid) => {
     try {
-      const response = await fetch("/api/function/removecart", {
+      const response = await fetch(`${apiUrl}/function/removecart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

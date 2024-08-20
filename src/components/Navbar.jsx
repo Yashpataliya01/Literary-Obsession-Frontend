@@ -4,6 +4,10 @@ import { AppContext } from "../Context/Bookdata";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const { favcount, setFavcount, favcart, setFavcart } = useContext(AppContext);
   const navigate = useNavigate();
   const checklogin = () => {
@@ -36,7 +40,7 @@ function Navbar() {
 
   const signout = async () => {
     try {
-      const response = await fetch("/api/auth/signout");
+      const response = await fetch(`${apiUrl}/auth/signout`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       } else {

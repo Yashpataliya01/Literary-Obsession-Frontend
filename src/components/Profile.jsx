@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Profile.module.css";
 
 function Profile() {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const navigate = useNavigate();
   const { setIslogin, setFavcount } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("profile");
@@ -15,7 +19,7 @@ function Profile() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("/api/auth/getuser");
+        const response = await fetch(`${apiUrl}/auth/getuser`);
         if (!response.ok) {
           navigate("/signin");
           throw new Error("Network response was not ok");
@@ -38,7 +42,7 @@ function Profile() {
 
   const signout = async () => {
     try {
-      const response = await fetch("/api/auth/signout");
+      const response = await fetch(`${apiUrl}/auth/signout`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       } else {

@@ -1,10 +1,14 @@
 import React from "react";
 import styles from "./Favbooks.module.css";
 function Myfavbook({ Booksdata, setDelet }) {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const removefav = async (bookid) => {
     setDelet(false);
     try {
-      const response = await fetch("/api/function/removefav", {
+      const response = await fetch(`${apiUrl}/function/removefav`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

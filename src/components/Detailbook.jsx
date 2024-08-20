@@ -5,6 +5,10 @@ import Oldandrare from "./Oldandrare";
 import styles from "./Detailbook.module.css";
 
 function Detailbook() {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
@@ -12,7 +16,7 @@ function Detailbook() {
 
   const addtocart = async (bookid) => {
     try {
-      const res = await fetch("/api/function/addtocart", {
+      const res = await fetch(`${apiUrl}/function/addtocart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
