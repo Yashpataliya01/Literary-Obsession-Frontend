@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./Home.module.css";
+import homeimg from "../../public/home.png";
 import Bestseller from "./Bestseller";
 import Oldandrare from "./Oldandrare";
 import { AppContext } from "../Context/Bookdata";
@@ -23,7 +24,7 @@ function Home() {
 
   return (
     <>
-      <img src="/home.png" alt="Home" className={styles.homeimg} />
+      <img src={homeimg} alt="Home" className={styles.homeimg} />
       <div className={styles.home}>
         <div className={styles.content}>
           <div className={styles.heading}>
