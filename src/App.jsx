@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import LocomotiveScroll from "locomotive-scroll";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Signin from "./components/Signin";
@@ -18,6 +19,7 @@ import Buy from "./components/Buy";
 import Scrolltotop from "./components/Scrolltotop";
 
 function App() {
+  const locomotiveScroll = new LocomotiveScroll();
   return (
     <AppProvider>
       <BrowserRouter>
