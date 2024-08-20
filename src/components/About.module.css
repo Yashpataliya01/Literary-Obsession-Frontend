@@ -17,7 +17,7 @@
 
 .hero{
   width: 100%;
-  background-image: url("./about.png");
+  background-image: url("/about.png");
   min-height: 500px;
   background-size: cover;
   background-position: center;
