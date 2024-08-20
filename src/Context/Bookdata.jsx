@@ -16,7 +16,10 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/books/finduser", { method: "GET" });
+        const response = await fetch(
+          "https://literary-obsession-backend-1.onrender.com/api/books/finduser",
+          { method: "GET" }
+        );
         const userdata = await fetch("/api/auth/getuser");
         const booksData = await response.json();
         const userData = await userdata.json();
