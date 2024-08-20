@@ -15,11 +15,13 @@ import Detailbook from "./components/Detailbook";
 import Myfav from "./components/Myfav";
 import Cart from "./components/Cart";
 import Buy from "./components/Buy";
+import Scrolltotop from "./components/Scrolltotop";
 
 function App() {
   return (
     <AppProvider>
       <BrowserRouter>
+        <Scrolltotop />
         <Navbar />
         <main>
           <Routes>
