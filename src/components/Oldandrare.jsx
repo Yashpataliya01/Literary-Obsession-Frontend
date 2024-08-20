@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -15,7 +15,7 @@ function Oldandrare({ booktitle, name, stylees }) {
       ? "https://literary-obsession-backend-1.onrender.com/api"
       : "/api";
   const { favcount, setFavcount } = useContext(AppContext);
-
+  const navigate = useNavigate();
   useGSAP(() => {
     gsap.from(`.${styles.mySwiper}`, {
       opacity: 0,
@@ -56,7 +56,6 @@ function Oldandrare({ booktitle, name, stylees }) {
       navigate("/signin");
     }
   };
-
   const removefav = async (bookid) => {
     if (localStorage.getItem("isLogin") === "true") {
       try {
