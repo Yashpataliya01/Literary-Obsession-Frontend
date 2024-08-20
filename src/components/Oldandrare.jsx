@@ -8,11 +8,7 @@ import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { AppContext } from "../Context/Bookdata";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./Oldandrare.module.css";
-
-gsap.registerPlugin(ScrollTrigger);
-
 function Oldandrare({ booktitle, name, stylees }) {
   const apiUrl =
     process.env.NODE_ENV === "production"
@@ -82,6 +78,22 @@ function Oldandrare({ booktitle, name, stylees }) {
       }
     } else {
       signout();
+      navigate("/signin");
+    }
+  };
+
+  const signout = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/auth/signout`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        localStorage.clear();
+        navigate("/");
+        setIslogin(false);
+        setFavcount(0);
+      }
+    } catch {
       navigate("/signin");
     }
   };
