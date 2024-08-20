@@ -3,6 +3,11 @@ import React, { createContext, useState, useEffect } from "react";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://literary-obsession-backend-1.onrender.com/api"
+      : "/api";
+
   const [Classic, setClassic] = useState([]);
   const [bestseller, setbestseller] = useState([]);
   const [categoryselection, setcategoryselection] = useState("Romance");
@@ -16,11 +21,10 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://literary-obsession-backend-1.onrender.com/api/books/finduser",
-          { method: "GET" }
-        );
-        const userdata = await fetch("/api/auth/getuser");
+        const response = await fetch(`${apiUrl}/books/finduser`, {
+          method: "GET",
+        });
+        const userdata = await fetch(`${apiUrl}//auth/getuser`);
         const booksData = await response.json();
         const userData = await userdata.json();
         setUserData(userData);
