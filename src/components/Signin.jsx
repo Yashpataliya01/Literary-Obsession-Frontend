@@ -29,8 +29,8 @@ function Signin() {
         throw new Error(errorData.error || "Check details again");
       }
       const result = await res.json();
-      console.log(result);
       localStorage.setItem("isLogin", true);
+      localStorage.setItem("token", result.token);
       setIslogin(true);
       navigate("/");
     } catch (error) {
