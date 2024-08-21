@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from "axios";
 import { AppContext } from "../Context/Bookdata";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Signin.module.css";
@@ -10,6 +11,7 @@ function Signin() {
       : "/api";
   const navigate = useNavigate();
   const { setIslogin } = useContext(AppContext);
+
   const handlesignin = async (e) => {
     e.preventDefault();
     const formdata = new FormData(e.target);
@@ -17,26 +19,24 @@ function Signin() {
       email: formdata.get("email"),
       password: formdata.get("password"),
     };
+
     try {
-      const res = await fetch(`${apiUrl}/auth/signin`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userdata),
+      const response = await axios.post(`${apiUrl}/auth/signin`, userdata, {
+        withCredentials: true, // Include credentials in request (for cookies)
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error || "Check details again");
-      }
-      const result = await res.json();
-      console.log(result);
+      console.log(response.data);
       localStorage.setItem("isLogin", true);
       setIslogin(true);
       navigate("/");
     } catch (error) {
-      console.error("Error during sign up:", error);
-      alert(`Error: ${error}`);
+      console.error("Error during sign in:", error);
+      alert(`Error: ${error.response?.data?.error || error.message}`);
     }
   };
+
   return (
     <div className={styles.signin}>
       <div className={styles.right}>
