@@ -19,7 +19,13 @@ function Profile() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/auth/getuser`);
+        const response = await fetch(`${apiUrl}/auth/getuser`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(localStorage.getItem("token")),
+        });
         if (!response.ok) {
           navigate("/signin");
           throw new Error("Network response was not ok");
