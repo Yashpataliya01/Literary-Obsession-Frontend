@@ -31,6 +31,7 @@ function Signin() {
       const result = await res.json();
       localStorage.setItem("isLogin", true);
       localStorage.setItem("token", result.token);
+      console.log(result);
       setIslogin(true);
       navigate("/");
     } catch (error) {
