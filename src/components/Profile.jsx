@@ -19,12 +19,13 @@ function Profile() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await fetch(`${apiUrl}/auth/getuser`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(localStorage.getItem("token")),
         });
         if (!response.ok) {
           navigate("/signin");
