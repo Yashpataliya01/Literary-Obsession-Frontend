@@ -10,6 +10,7 @@ import gsap from "gsap";
 import { AppContext } from "../Context/Bookdata";
 import styles from "./Oldandrare.module.css";
 function Oldandrare({ booktitle, name, stylees }) {
+  const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
@@ -39,7 +40,7 @@ function Oldandrare({ booktitle, name, stylees }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ bookid }),
+          body: JSON.stringify({ bookid, token }),
         });
 
         if (!response.ok) {
@@ -64,7 +65,7 @@ function Oldandrare({ booktitle, name, stylees }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ bookid }),
+          body: JSON.stringify({ bookid, token }),
         });
 
         if (!response.ok) {

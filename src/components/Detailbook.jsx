@@ -16,12 +16,13 @@ function Detailbook() {
 
   const addtocart = async (bookid) => {
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(`${apiUrl}/function/addtocart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookid }),
+        body: JSON.stringify({ bookid, token }),
       });
       navigate("/cart");
     } catch (error) {

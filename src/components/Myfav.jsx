@@ -13,8 +13,13 @@ function Myfav() {
   useEffect(() => {
     const fatchingdata = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await fetch(`${apiUrl}/function/getfavbook`, {
           method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         });
         const user = await response.json();
         setBooksdata(user.fav);

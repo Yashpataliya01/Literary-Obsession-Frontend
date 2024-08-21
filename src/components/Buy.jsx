@@ -9,6 +9,7 @@ function Buy() {
       ? "https://literary-obsession-backend-1.onrender.com/api"
       : "/api";
   const Navigate = useNavigate();
+  const token = localStorage.getItem("token");
   const [selectedPayment, setSelectedPayment] = useState("Credit Card");
   const { userdata } = useContext(AppContext);
   const location = useLocation();
@@ -74,7 +75,7 @@ function Buy() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ newBuyedData }),
+        body: JSON.stringify({ newBuyedData, token }),
       });
 
       if (!response.ok) {

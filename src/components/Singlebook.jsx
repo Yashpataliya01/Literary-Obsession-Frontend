@@ -4,6 +4,7 @@ import { AppContext } from "../Context/Bookdata";
 import styles from "./Singlebook.module.css";
 
 function Singlebook({ Booksdata }) {
+  const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
@@ -15,6 +16,10 @@ function Singlebook({ Booksdata }) {
     try {
       const response = await fetch(`${apiUrl}/books/finduser`, {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
       const userdata = await fetch(`${apiUrl}/auth/getuser`);
       const booksData = await response.json();
@@ -52,7 +57,7 @@ function Singlebook({ Booksdata }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookid }),
+        body: JSON.stringify({ bookid, token }),
       });
 
       if (!response.ok) {
@@ -77,7 +82,7 @@ function Singlebook({ Booksdata }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookid }),
+        body: JSON.stringify({ bookid, token }),
       });
 
       if (!response.ok) {
@@ -102,7 +107,7 @@ function Singlebook({ Booksdata }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookid }),
+        body: JSON.stringify({ bookid, token }),
       });
 
       if (!response.ok) {
@@ -127,7 +132,7 @@ function Singlebook({ Booksdata }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookid }),
+        body: JSON.stringify({ bookid, token }),
       });
 
       if (!response.ok) {

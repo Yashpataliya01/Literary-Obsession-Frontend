@@ -3,6 +3,7 @@ import styles from "./Mycart.module.css";
 import { Link } from "react-router-dom";
 
 function Mycart({ Booksdata, setDelet }) {
+  const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
@@ -38,7 +39,7 @@ function Mycart({ Booksdata, setDelet }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookId }),
+        body: JSON.stringify({ bookId, token }),
       });
 
       if (!response.ok) {
