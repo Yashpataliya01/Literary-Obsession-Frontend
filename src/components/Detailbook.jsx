@@ -12,6 +12,7 @@ function Detailbook() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
+  console.log("state", state);
   const { favcart, setFavcart } = useContext(AppContext);
 
   const addtocart = async (bookid) => {
