@@ -18,46 +18,54 @@ function Detailbook() {
   const { favcart, setFavcart } = useContext(AppContext);
 
   const addtocart = async (bookid) => {
-    try {
-      setusercart(true);
-      setLoading(true);
-      const res = await fetch(`${apiUrl}/function/addtocart`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ bookid, token }),
-      });
-      setLoading(false);
-      navigate("/cart");
-    } catch (error) {
-      alert(error);
-      setusercart(false);
-      setLoading(false);
+    if (localStorage.getItem("isLogin")) {
+      try {
+        setusercart(true);
+        setLoading(true);
+        const res = await fetch(`${apiUrl}/function/addtocart`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bookid, token }),
+        });
+        setLoading(false);
+        navigate("/cart");
+      } catch (error) {
+        alert(error);
+        setusercart(false);
+        setLoading(false);
+      }
+    } else {
+      navigate("/signin");
     }
   };
 
   const removecart = async (bookid) => {
-    try {
-      setusercart(false);
-      setLoading(true);
-      const response = await fetch(`${apiUrl}/function/removecart`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ bookid, token }),
-      });
+    if (localStorage.getItem("isLogin")) {
+      try {
+        setusercart(false);
+        setLoading(true);
+        const response = await fetch(`${apiUrl}/function/removecart`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bookid, token }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        setFavcart((prev) => prev - 1);
+        setLoading(false);
+      } catch (error) {
+        setusercart(true);
+        setLoading(false);
       }
-
-      setFavcart((prev) => prev - 1);
-      setLoading(false);
-    } catch (error) {
-      setusercart(true);
-      setLoading(false);
+    } else {
+      navigate("/signin");
     }
   };
 
