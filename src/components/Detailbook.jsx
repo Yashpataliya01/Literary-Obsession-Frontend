@@ -56,18 +56,27 @@ function Detailbook() {
     }
   };
 
-  useEffect(async () => {
-    const userdata = await fetch(`${apiUrl}/auth/getuser`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const userData = await userdata.json();
-    const userCart = new Set(userData.cart || []);
-    if (userCart.has(state._id)) {
-      setusercart(true);
-    }
-  }, [addtocart, removecart]);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userdata = await fetch(`${apiUrl}/auth/getuser`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const userData = await userdata.json();
+        const userCart = new Set(userData.cart || []);
+        if (userCart.has(state._id)) {
+          setusercart(true);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [removecart, addtocart, state._id]);
+
   return (
     <>
       <div className={styles.main}>
