@@ -8,31 +8,37 @@ function Myfav() {
       ? "https://literary-obsession-backend-1.onrender.com/api"
       : "/api";
   const [Booksdata, setBooksdata] = useState([]);
-  const [delet, setDelet] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const fetchBooksData = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${apiUrl}/function/getfavbook`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const user = await response.json();
+      setBooksdata(user.fav);
+    } catch (error) {
+      console.error("Error fetching user favorite books:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchingData = async () => {
-      setLoading(true);
-      try {
-        const token = localStorage.getItem("token");
-        const response = await fetch(`${apiUrl}/function/getfavbook`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const user = await response.json();
-        setBooksdata(user.fav);
-      } catch (error) {
-        console.error("Error fetching user favorite books:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchingData();
-  }, [delet]);
+    fetchBooksData();
+  }, []);
+
+  const updateBooksData = (bookid) => {
+    setBooksdata((prevBooksdata) =>
+      prevBooksdata.filter((book) => book._id !== bookid)
+    );
+  };
 
   return (
     <>
@@ -43,7 +49,7 @@ function Myfav() {
             <div className={styles.circleLoader}></div>
           </div>
         ) : Booksdata.length > 0 ? (
-          <Myfavbook Booksdata={Booksdata} setDelet={setDelet} />
+          <Myfavbook Booksdata={Booksdata} updateBooksData={updateBooksData} />
         ) : (
           <p className={styles.noBooks}>No books in your wishlist yet.</p>
         )}

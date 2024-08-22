@@ -71,7 +71,7 @@ function Myfavbook({ Booksdata, updateBooksData }) {
         <p>No favorite books to show.</p>
       ) : (
         Booksdata.map((book) => (
-          <div className={styles.bookCard} key={book.title}>
+          <div className={styles.bookCard} key={book._id}>
             <img src={book.image} alt="book" className={styles.bookImage} />
             <div className={styles.bookInfo}>
               <h2 className={styles.bookTitle}>{book.title}</h2>
