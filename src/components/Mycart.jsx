@@ -79,11 +79,16 @@ function Mycart({ Booksdata, setDelet }) {
               {Booksdata.map((book) => (
                 <tr key={book._id} className={styles.bookRow}>
                   <td>
-                    <img
-                      src={book.image}
-                      alt={book.title}
-                      className={styles.bookImage}
-                    />
+                    <Link
+                      to={{ pathname: `/book/${book.title} ` }}
+                      state={{ ...book }}
+                    >
+                      <img
+                        src={book.image}
+                        alt={book.title}
+                        className={styles.bookImage}
+                      />
+                    </Link>
                   </td>
                   <td>
                     <div className={styles.bookDetails}>
