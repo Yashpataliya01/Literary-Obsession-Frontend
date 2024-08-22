@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../Context/Bookdata";
 import { Link } from "react-router-dom";
 import styles from "./Favbooks.module.css";
@@ -6,6 +6,7 @@ import styles from "./Favbooks.module.css";
 function Myfavbook({ Booksdata, updateBooksData }) {
   const { bestseller } = useContext(AppContext);
   const booktitle = bestseller;
+  const [Books, setBooks] = useState([]);
   const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
@@ -67,12 +68,50 @@ function Myfavbook({ Booksdata, updateBooksData }) {
     }
   };
 
+  const fetchBooks = async () => {
+    try {
+      const userdata = await fetch(`${apiUrl}/auth/getuser`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const userData = await userdata.json();
+
+      const userFavorites = new Set(userData.fav || []);
+      const userCart = new Set(userData.cart || []);
+
+      const updatedBooksData = Booksdata.map((book) => ({
+        ...book,
+        fav: userFavorites.has(book._id),
+        cart: userCart.has(book._id),
+      }));
+
+      if (
+        Booksdata.length > 0 &&
+        Booksdata[0].category[0] === Booksdata[Booksdata.length - 1].category[0]
+      ) {
+        setBooks(
+          updatedBooksData.filter((book) =>
+            book.category.includes(Booksdata[0].category[0])
+          )
+        );
+      } else {
+        setBooks(updatedBooksData);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBooks();
+  }, [updateBooksData]);
   return (
     <>
-      {Booksdata.length === 0 ? (
+      {Books.length === 0 ? (
         <p>No favorite books to show.</p>
       ) : (
-        Booksdata.map((book) => (
+        Books.map((book) => (
           <div className={styles.bookCard} key={book._id}>
             <Link
               to={{ pathname: `/book/${book.title} ` }}
