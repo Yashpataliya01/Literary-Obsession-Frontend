@@ -9,9 +9,11 @@ function Myfav() {
       : "/api";
   const [Booksdata, setBooksdata] = useState([]);
   const [delet, setDelet] = useState(false);
+  const [loading, setLoading] = useState(true); // Loader state
 
   useEffect(() => {
-    const fatchingdata = async () => {
+    const fetchingData = async () => {
+      setLoading(true); // Show loader
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(`${apiUrl}/function/getfavbook`, {
@@ -25,16 +27,20 @@ function Myfav() {
         setBooksdata(user.fav);
       } catch (error) {
         console.error("Error fetching user favorite books:", error);
+      } finally {
+        setLoading(false); // Hide loader once data is loaded
       }
     };
-    fatchingdata();
+    fetchingData();
   }, [delet]);
 
   return (
     <>
       <h1 className={styles.title}>My Wishlist 💖</h1>
       <div className={styles.books}>
-        {Booksdata.length > 0 ? (
+        {loading ? (
+          <div className={styles.loader}>Loading...</div>
+        ) : Booksdata.length > 0 ? (
           <Myfavbook Booksdata={Booksdata} setDelet={setDelet} />
         ) : (
           <p className={styles.noBooks}>No books in your wishlist yet.</p>
