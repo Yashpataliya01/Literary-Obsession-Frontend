@@ -12,53 +12,48 @@ function Singlebook({ Booksdata }) {
   const { setFavcount, setFavcart } = useContext(AppContext);
   const [Books, setBooks] = useState([]);
 
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/books/finduser`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const userdata = await fetch(`${apiUrl}/auth/getuser`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const booksData = await response.json();
-        const userData = await userdata.json();
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/books/finduser`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const userdata = await fetch(`${apiUrl}/auth/getuser`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const booksData = await response.json();
+      const userData = await userdata.json();
 
-        const userFavorites = new Set(userData.fav || []);
-        const userCart = new Set(userData.cart || []);
+      const userFavorites = new Set(userData.fav || []);
+      const userCart = new Set(userData.cart || []);
 
-        const updatedBooksData = booksData.map((book) => ({
-          ...book,
-          fav: userFavorites.has(book._id),
-          cart: userCart.has(book._id),
-        }));
+      const updatedBooksData = booksData.map((book) => ({
+        ...book,
+        fav: userFavorites.has(book._id),
+        cart: userCart.has(book._id),
+      }));
 
-        if (
-          Booksdata.length > 0 &&
-          Booksdata[0].category[0] ===
-            Booksdata[Booksdata.length - 1].category[0]
-        ) {
-          setBooks(
-            updatedBooksData.filter((book) =>
-              book.category.includes(Booksdata[0].category[0])
-            )
-          );
-        } else {
-          setBooks(updatedBooksData);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      if (
+        Booksdata.length > 0 &&
+        Booksdata[0].category[0] === Booksdata[Booksdata.length - 1].category[0]
+      ) {
+        setBooks(
+          updatedBooksData.filter((book) =>
+            book.category.includes(Booksdata[0].category[0])
+          )
+        );
+      } else {
+        setBooks(updatedBooksData);
       }
-    };
-
-    fetchBooks();
-  }, []); // Run only once on component mount
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const addtofav = async (bookid) => {
     try {
@@ -160,45 +155,61 @@ function Singlebook({ Booksdata }) {
     }
   };
 
+  useEffect(() => {
+    fetchBooks();
+  }, [Booksdata]);
+
   return (
     <>
-      {Books.length > 0 ? (
-        Books.map((book) => (
-          <div className={styles.book} key={book._id}>
-            <img src={book.image} alt={book.title} className={styles.image} />
-            <div className={styles.details}>
-              <h2 className={styles.title}>{book.title}</h2>
-              <p className={styles.author}>By {book.author}</p>
-              <p className={styles.price}>${book.price}</p>
-              <div className={styles.buttons}>
-                {book.fav ? (
-                  <button onClick={() => removefav(book._id)}>
-                    Remove from Favorites
-                  </button>
-                ) : (
-                  <button onClick={() => addtofav(book._id)}>
-                    Add to Favorites
-                  </button>
-                )}
-                {book.cart ? (
-                  <button onClick={() => removecart(book._id)}>
-                    Remove from Cart
-                  </button>
-                ) : (
-                  <button onClick={() => addtocart(book._id)}>
-                    Add to Cart
-                  </button>
-                )}
-                <Link to={`/books/${book._id}`} className={styles.detailsLink}>
-                  View Details
-                </Link>
-              </div>
+      {Books.map((book) => (
+        <div className={styles.bookCard} key={book._id}>
+          <Link
+            className={styles.navigate}
+            to={{ pathname: `/book/${book.title}` }}
+            state={{ ...book, Books }}
+          >
+            <img src={book.image} alt="book" className={styles.bookImage} />
+          </Link>
+          <div className={styles.bookInfo}>
+            <h2 className={styles.bookTitle}>{book.title}</h2>
+            <p className={styles.bookAuthor}>{book.author}</p>
+            <p className={styles.bookPrice}>₹{book.price}/-</p>
+            <div className={styles.actionButtons}>
+              {book.cart ? (
+                <button
+                  className={styles.addToBagButton}
+                  onClick={() => removecart(book._id)}
+                >
+                  Remove from Bag
+                </button>
+              ) : (
+                <button
+                  className={styles.addToBagButton}
+                  style={{ backgroundColor: "black" }}
+                  onClick={() => addtocart(book._id)}
+                >
+                  Add to Bag
+                </button>
+              )}
+              {book.fav ? (
+                <button
+                  className={styles.favButton}
+                  onClick={() => removefav(book._id)}
+                >
+                  <i className="fa-solid fa-heart" style={{ color: "red" }}></i>
+                </button>
+              ) : (
+                <button
+                  className={styles.favButton}
+                  onClick={() => addtofav(book._id)}
+                >
+                  <i className="fa-regular fa-heart"></i>
+                </button>
+              )}
             </div>
           </div>
-        ))
-      ) : (
-        <p>No books available</p>
-      )}
+        </div>
+      ))}
     </>
   );
 }

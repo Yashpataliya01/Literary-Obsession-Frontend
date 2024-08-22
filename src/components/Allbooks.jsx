@@ -22,7 +22,7 @@ function Allbooks() {
     } else {
       setBooksdata(allbooks);
     }
-  }, [location.state, allbooks]);
+  }, [location.state]);
 
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
@@ -41,6 +41,8 @@ function Allbooks() {
   const handleSortChange = (e) => {
     const selectedSort = e.target.value;
     let sortedBooks = [...Booksdata];
+
+    console.log("Selected sort option:", selectedSort);
 
     switch (selectedSort) {
       case "top":
@@ -68,6 +70,7 @@ function Allbooks() {
         break;
     }
 
+    console.log("Sorted books:", sortedBooks);
     setBooksdata(sortedBooks);
   };
 
@@ -94,24 +97,6 @@ function Allbooks() {
             <option value="Biography">Biography</option>
             <option value="Business">Business</option>
             <option value="Thriller">Thriller</option>
-          </select>
-        </div>
-        <div className={styles.filterGroup}>
-          <label htmlFor="filter" className={styles.label}>
-            Sort By:
-          </label>
-          <select
-            name="filter"
-            id="filter"
-            className={styles.select}
-            onChange={handleSortChange}
-          >
-            <option value="Relevance">Relevance</option>
-            <option value="Popularity">Popularity</option>
-            <option value="top">Price: High to Low</option>
-            <option value="low">Price: Low to High</option>
-            <option value="new">Newest to Oldest</option>
-            <option value="old">Oldest to Newest</option>
           </select>
         </div>
       </div>
