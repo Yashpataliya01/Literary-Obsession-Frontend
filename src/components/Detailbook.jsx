@@ -46,11 +46,6 @@ function Detailbook() {
       }
 
       setFavcart((prev) => prev - 1);
-      setBooks((prevBooks) =>
-        prevBooks.map((book) =>
-          book._id === bookid ? { ...book, cart: false } : book
-        )
-      );
     } catch (error) {
       console.error("Error removing from cart:", error);
     }
