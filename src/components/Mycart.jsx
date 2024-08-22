@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Mycart.module.css";
 
-function Mycart({ Booksdata, setDelet, bestseller }) {
+function Mycart({ Booksdata, setDelet }) {
   const token = localStorage.getItem("token");
-  const [booktitle] = useState([bestseller]);
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
@@ -79,16 +78,11 @@ function Mycart({ Booksdata, setDelet, bestseller }) {
               {Booksdata.map((book) => (
                 <tr key={book._id} className={styles.bookRow}>
                   <td>
-                    <Link
-                      to={`/book/${book.title}`}
-                      state={{ ...book, booktitle }}
-                    >
-                      <img
-                        src={book.image}
-                        alt={book.title}
-                        className={styles.bookImage}
-                      />
-                    </Link>
+                    <img
+                      src={book.image}
+                      alt={book.title}
+                      className={styles.bookImage}
+                    />
                   </td>
                   <td>
                     <div className={styles.bookDetails}>
