@@ -8,7 +8,6 @@ function Myfav() {
       ? "https://literary-obsession-backend-1.onrender.com/api"
       : "/api";
   const [Booksdata, setBooksdata] = useState([]);
-  const [delet, setDelet] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,7 +31,13 @@ function Myfav() {
       }
     };
     fetchingData();
-  }, [delet]);
+  }, []);
+
+  const updateBooksData = (bookid) => {
+    setBooksdata((prevBooks) =>
+      prevBooks.filter((book) => book._id !== bookid)
+    );
+  };
 
   return (
     <>
@@ -41,7 +46,7 @@ function Myfav() {
         {loading ? (
           <div className={styles.loader}>Loading...</div>
         ) : Booksdata.length > 0 ? (
-          <Myfavbook Booksdata={Booksdata} setDelet={setDelet} />
+          <Myfavbook Booksdata={Booksdata} updateBooksData={updateBooksData} />
         ) : (
           <p className={styles.noBooks}>No books in your wishlist yet.</p>
         )}

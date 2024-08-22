@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Favbooks.module.css";
 
-function Myfavbook({ Booksdata, setDelet }) {
-  const [loading, setLoading] = useState(false);
-
+function Myfavbook({ Booksdata, updateBooksData }) {
   const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
@@ -11,7 +9,6 @@ function Myfavbook({ Booksdata, setDelet }) {
       : "/api";
 
   const addtocart = async (bookid) => {
-    setLoading(true);
     try {
       const response = await fetch(`${apiUrl}/function/addtocart`, {
         method: "POST",
@@ -24,17 +21,12 @@ function Myfavbook({ Booksdata, setDelet }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
-      setDelet(true);
-      setLoading(false);
     } catch (error) {
       console.error("Error adding to cart:", error);
-      setLoading(false);
     }
   };
 
   const removecart = async (bookid) => {
-    setLoading(true);
     try {
       const response = await fetch(`${apiUrl}/function/removecart`, {
         method: "POST",
@@ -47,17 +39,12 @@ function Myfavbook({ Booksdata, setDelet }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
-      setDelet(true);
-      setLoading(false);
     } catch (error) {
       console.error("Error removing from cart:", error);
-      setLoading(false);
     }
   };
 
   const removefav = async (bookid) => {
-    setLoading(true);
     try {
       const response = await fetch(`${apiUrl}/function/removefav`, {
         method: "POST",
@@ -71,11 +58,9 @@ function Myfavbook({ Booksdata, setDelet }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      setDelet(true);
-      setLoading(false);
+      updateBooksData(bookid);
     } catch (error) {
       console.error("Error removing from favorites:", error);
-      setLoading(false);
     }
   };
 
@@ -92,36 +77,27 @@ function Myfavbook({ Booksdata, setDelet }) {
               <p className={styles.bookAuthor}>{book.author}</p>
               <p className={styles.bookPrice}>₹{book.price}/-</p>
               <div className={styles.actionButtons}>
-                {loading ? (
-                  <div>Loading...</div>
+                {book.cart ? (
+                  <button
+                    className={styles.addToBagButton}
+                    onClick={() => removecart(book._id)}
+                  >
+                    Remove from Bag
+                  </button>
                 ) : (
-                  <>
-                    {book.cart ? (
-                      <button
-                        className={styles.addToBagButton}
-                        onClick={() => removecart(book._id)}
-                      >
-                        Remove from Bag
-                      </button>
-                    ) : (
-                      <button
-                        className={styles.addToBagButton}
-                        onClick={() => addtocart(book._id)}
-                      >
-                        Add to Bag
-                      </button>
-                    )}
-                    <button
-                      className={styles.favButton}
-                      onClick={() => removefav(book._id)}
-                    >
-                      <i
-                        className="fa-solid fa-heart"
-                        style={{ color: "red" }}
-                      ></i>
-                    </button>
-                  </>
+                  <button
+                    className={styles.addToBagButton}
+                    onClick={() => addtocart(book._id)}
+                  >
+                    Add to Bag
+                  </button>
                 )}
+                <button
+                  className={styles.favButton}
+                  onClick={() => removefav(book._id)}
+                >
+                  <i className="fa-solid fa-heart" style={{ color: "red" }}></i>
+                </button>
               </div>
             </div>
           </div>
