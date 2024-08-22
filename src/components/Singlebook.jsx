@@ -30,11 +30,12 @@ function Singlebook({ Booksdata }) {
       const userData = await userdata.json();
 
       const userFavorites = new Set(userData.fav || []);
+      const userCart = new Set(userData.cart || []);
 
       const updatedBooksData = booksData.map((book) => ({
         ...book,
         fav: userFavorites.has(book._id),
-        cart: userFavorites.has(book._id),
+        cart: userCart.has(book._id),
       }));
 
       if (

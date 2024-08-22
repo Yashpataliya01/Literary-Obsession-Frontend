@@ -22,7 +22,7 @@ function Allbooks() {
     } else {
       setBooksdata(allbooks);
     }
-  }, []);
+  }, [location.state]);
 
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;

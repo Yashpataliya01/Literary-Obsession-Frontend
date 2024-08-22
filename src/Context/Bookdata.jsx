@@ -21,6 +21,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("main run");
       try {
         const response = await fetch(`${apiUrl}/books/finduser`, {
           method: "GET",
