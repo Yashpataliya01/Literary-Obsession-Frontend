@@ -21,11 +21,16 @@ function Singlebook({ Booksdata }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      const userdata = await fetch(`${apiUrl}/auth/getuser`);
+      const userdata = await fetch(`${apiUrl}/auth/getuser`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const booksData = await response.json();
       const userData = await userdata.json();
 
       const userFavorites = new Set(userData.fav || []);
+
       const updatedBooksData = booksData.map((book) => ({
         ...book,
         fav: userFavorites.has(book._id),
@@ -36,7 +41,6 @@ function Singlebook({ Booksdata }) {
         Booksdata.length > 0 &&
         Booksdata[0].category[0] === Booksdata[Booksdata.length - 1].category[0]
       ) {
-        console.log(Booksdata, "Booksssdata");
         setBooks(
           updatedBooksData.filter((book) =>
             book.category.includes(Booksdata[0].category[0])
