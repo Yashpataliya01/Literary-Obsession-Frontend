@@ -97,7 +97,7 @@ function Detailbook() {
           </div>
           <div className={styles.btns}>
             {loading ? (
-              <button className={styles.loadingButton}>Loading...</button>
+              <button className={styles.addToCart}>Loading...</button>
             ) : usercart ? (
               <button
                 className={styles.addToCart}
