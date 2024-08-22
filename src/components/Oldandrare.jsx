@@ -9,6 +9,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { AppContext } from "../Context/Bookdata";
 import styles from "./Oldandrare.module.css";
+
 function Oldandrare({ booktitle, name, stylees }) {
   const token = localStorage.getItem("token");
   const apiUrl =
@@ -17,6 +18,7 @@ function Oldandrare({ booktitle, name, stylees }) {
       : "/api";
   const { favcount, setFavcount } = useContext(AppContext);
   const navigate = useNavigate();
+
   useGSAP(() => {
     gsap.from(`.${styles.mySwiper}`, {
       opacity: 0,
@@ -57,6 +59,7 @@ function Oldandrare({ booktitle, name, stylees }) {
       navigate("/signin");
     }
   };
+
   const removefav = async (bookid) => {
     if (localStorage.getItem("isLogin") === "true") {
       try {
@@ -133,7 +136,11 @@ function Oldandrare({ booktitle, name, stylees }) {
                 <img src={book.image} alt={book.title} className={styles.img} />
               </Link>
               <div className={styles.bookdetails}>
-                <h1>{book.title.substring(0, 31)}</h1>
+                <h1>
+                  {book.title.length > 31
+                    ? book.title.substring(0, 31) + "..."
+                    : book.title}
+                </h1>
                 <p>{book.author}</p>
                 <div className={styles.innerdiv}>
                   <h2>₹{book.price} /-</h2>
