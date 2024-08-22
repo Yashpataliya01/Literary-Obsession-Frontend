@@ -27,7 +27,7 @@ function Myfavbook({ Booksdata, updateBooksData }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      setFavcart(favcart);
+      setFavcart((prev) => prev + 1);
     } catch (error) {
       console.error("Error adding to cart:", error);
     }
@@ -46,7 +46,7 @@ function Myfavbook({ Booksdata, updateBooksData }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      setFavcart(favcart);
+      setFavcart((prev) => prev - 1);
     } catch (error) {
       console.error("Error removing from cart:", error);
     }
@@ -65,7 +65,7 @@ function Myfavbook({ Booksdata, updateBooksData }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      setFavcount(favcount);
+      setFavcount((prev) => prev - 1);
       updateBooksData(bookid);
     } catch (error) {
       console.error("Error removing from favorites:", error);
