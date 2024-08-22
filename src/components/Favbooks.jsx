@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "./Favbooks.module.css";
 
 function Myfavbook({ Booksdata, updateBooksData }) {
-  const { bestseller } = useContext(AppContext);
+  const { bestseller, setFavcount, setFavcart, favcount, favcart } =
+    useContext(AppContext);
   const booktitle = bestseller;
   const [Books, setBooks] = useState([]);
   const token = localStorage.getItem("token");
@@ -26,6 +27,7 @@ function Myfavbook({ Booksdata, updateBooksData }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      setFavcart(favcart);
     } catch (error) {
       console.error("Error adding to cart:", error);
     }
@@ -44,6 +46,7 @@ function Myfavbook({ Booksdata, updateBooksData }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      setFavcart(favcart);
     } catch (error) {
       console.error("Error removing from cart:", error);
     }
@@ -62,6 +65,7 @@ function Myfavbook({ Booksdata, updateBooksData }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      setFavcount(favcount);
       updateBooksData(bookid);
     } catch (error) {
       console.error("Error removing from favorites:", error);
@@ -105,7 +109,7 @@ function Myfavbook({ Booksdata, updateBooksData }) {
 
   useEffect(() => {
     fetchBooks();
-  }, [updateBooksData]);
+  }, [updateBooksData, addtocart, removecart]);
   return (
     <>
       {Books.length === 0 ? (
