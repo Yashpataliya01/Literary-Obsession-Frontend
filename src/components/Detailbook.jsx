@@ -27,7 +27,7 @@ function Detailbook() {
     if (userCart.has(state._id)) {
       setusercart(true);
     }
-  }, []);
+  }, [addtocart, removecart]);
 
   const addtocart = async (bookid) => {
     try {
