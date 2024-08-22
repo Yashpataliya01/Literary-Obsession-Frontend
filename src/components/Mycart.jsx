@@ -1,23 +1,23 @@
-import React from "react";
-import styles from "./Mycart.module.css";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import styles from "./Mycart.module.css";
 
 function Mycart({ Booksdata, setDelet, bestseller }) {
   const token = localStorage.getItem("token");
-  const [booktitle, setbooktitle] = React.useState([bestseller]);
+  const [booktitle] = useState([bestseller]);
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
       : "/api";
-  const [bookprices, setBookprices] = React.useState(0);
-  const [booktax, setBooktax] = React.useState(0);
-  const [quantities, setQuantities] = React.useState({});
-  React.useEffect(() => {
+  const [bookprices, setBookprices] = useState(0);
+  const [booktax, setBooktax] = useState(0);
+  const [quantities, setQuantities] = useState({});
+
+  useEffect(() => {
     let totalPrice = 0;
     Booksdata.forEach((book) => {
       totalPrice += book.price * (quantities[book._id] || 1);
     });
-
     setBookprices(totalPrice);
     setBooktax((totalPrice * 12) / 100);
   }, [Booksdata, quantities]);
@@ -46,7 +46,6 @@ function Mycart({ Booksdata, setDelet, bestseller }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const res = await response.json();
       setDelet(true);
     } catch (error) {
       console.error("Error removing from cart:", error);
@@ -81,7 +80,7 @@ function Mycart({ Booksdata, setDelet, bestseller }) {
                 <tr key={book._id} className={styles.bookRow}>
                   <td>
                     <Link
-                      to={{ pathname: `/book/${book.title} ` }}
+                      to={`/book/${book.title}`}
                       state={{ ...book, booktitle }}
                     >
                       <img
@@ -142,10 +141,10 @@ function Mycart({ Booksdata, setDelet, bestseller }) {
           <p>Price: ₹{bookprices}/-</p>
           <p>Subtotal: ₹{bookprices}/-</p>
           <p>Tax: ₹{booktax}/-</p>
-          <h3>Total: ₹{bookprices + booktax}/-</h3>
+          <h3>Total: ₹{totalAmount}/-</h3>
           <Link
             style={{ color: "white", textDecoration: "none" }}
-            to={{ pathname: `/order ` }}
+            to="/order"
             state={{ books: Booksdata, quantities, booktax, totalAmount }}
           >
             <button className={styles.checkoutButton}>Checkout</button>
