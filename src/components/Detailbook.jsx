@@ -14,11 +14,13 @@ function Detailbook() {
   const location = useLocation();
   const state = location.state;
   const [usercart, setusercart] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { favcart, setFavcart } = useContext(AppContext);
 
   const addtocart = async (bookid) => {
     try {
-      setusercart(true); // Optimistically update state
+      setusercart(true);
+      setLoading(true);
       const res = await fetch(`${apiUrl}/function/addtocart`, {
         method: "POST",
         headers: {
@@ -26,16 +28,19 @@ function Detailbook() {
         },
         body: JSON.stringify({ bookid, token }),
       });
+      setLoading(false);
       navigate("/cart");
     } catch (error) {
       alert(error);
-      setusercart(false); // Revert state in case of error
+      setusercart(false);
+      setLoading(false);
     }
   };
 
   const removecart = async (bookid) => {
     try {
-      setusercart(false); // Optimistically update state
+      setusercart(false);
+      setLoading(true);
       const response = await fetch(`${apiUrl}/function/removecart`, {
         method: "POST",
         headers: {
@@ -49,9 +54,10 @@ function Detailbook() {
       }
 
       setFavcart((prev) => prev - 1);
+      setLoading(false);
     } catch (error) {
-      console.error("Error removing from cart:", error);
-      setusercart(true); // Revert state in case of error
+      setusercart(true);
+      setLoading(false);
     }
   };
 
@@ -68,8 +74,9 @@ function Detailbook() {
         if (userCart.has(state._id)) {
           setusercart(true);
         }
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        setLoading(false);
       }
     };
 
@@ -89,7 +96,9 @@ function Detailbook() {
             <p className={styles.price}>Rs. {state.price}/-</p>
           </div>
           <div className={styles.btns}>
-            {usercart ? (
+            {loading ? (
+              <button className={styles.loadingButton}>Loading...</button>
+            ) : usercart ? (
               <button
                 className={styles.addToCart}
                 onClick={() => removecart(state._id)}
