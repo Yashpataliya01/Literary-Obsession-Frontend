@@ -15,9 +15,10 @@ function Detailbook() {
   const state = location.state;
   const [usercart, setusercart] = useState(false);
   const { favcart, setFavcart } = useContext(AppContext);
+
   const addtocart = async (bookid) => {
     try {
-      const token = localStorage.getItem("token");
+      setusercart(true); // Optimistically update state
       const res = await fetch(`${apiUrl}/function/addtocart`, {
         method: "POST",
         headers: {
@@ -28,11 +29,13 @@ function Detailbook() {
       navigate("/cart");
     } catch (error) {
       alert(error);
+      setusercart(false); // Revert state in case of error
     }
   };
 
   const removecart = async (bookid) => {
     try {
+      setusercart(false); // Optimistically update state
       const response = await fetch(`${apiUrl}/function/removecart`, {
         method: "POST",
         headers: {
@@ -48,6 +51,7 @@ function Detailbook() {
       setFavcart((prev) => prev - 1);
     } catch (error) {
       console.error("Error removing from cart:", error);
+      setusercart(true); // Revert state in case of error
     }
   };
 
@@ -70,7 +74,7 @@ function Detailbook() {
     };
 
     fetchUserData();
-  }, [removecart, addtocart, state._id]);
+  }, [state._id]);
 
   return (
     <>
@@ -88,14 +92,14 @@ function Detailbook() {
             {usercart ? (
               <button
                 className={styles.addToCart}
-                onClick={(e) => removecart(state._id)}
+                onClick={() => removecart(state._id)}
               >
                 REMOVE <i className="fa-solid fa-cart-shopping"></i>
               </button>
             ) : (
               <button
                 className={styles.addToCart}
-                onClick={(e) => addtocart(state._id)}
+                onClick={() => addtocart(state._id)}
               >
                 ADD TO CART <i className="fa-solid fa-cart-shopping"></i>
               </button>
