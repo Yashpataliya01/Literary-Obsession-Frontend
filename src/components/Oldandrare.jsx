@@ -72,7 +72,7 @@ function Oldandrare({ booktitle, name, stylees }) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const res = await response.json();
-        setFavcount(favcount + 1);
+        setFavcount(favcount - 1);
       } catch (error) {
         console.error("Error removing to favorites:", error);
       }
