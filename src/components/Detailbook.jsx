@@ -18,7 +18,7 @@ function Detailbook() {
   const { favcart, setFavcart } = useContext(AppContext);
 
   const addtocart = async (bookid) => {
-    if (localStorage.getItem("isLogin")) {
+    if (localStorage.getItem("isLogin") === "true") {
       try {
         setusercart(true);
         setLoading(true);
@@ -42,7 +42,7 @@ function Detailbook() {
   };
 
   const removecart = async (bookid) => {
-    if (localStorage.getItem("isLogin")) {
+    if (localStorage.getItem("isLogin") === "true") {
       try {
         setusercart(false);
         setLoading(true);
