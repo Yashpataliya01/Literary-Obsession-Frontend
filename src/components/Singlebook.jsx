@@ -174,35 +174,27 @@ function Singlebook({ Booksdata }) {
             <p className={styles.bookAuthor}>{book.author}</p>
             <p className={styles.bookPrice}>₹{book.price}/-</p>
             <div className={styles.actionButtons}>
-              {book.cart ? (
-                <button
-                  className={styles.addToBagButton}
-                  onClick={() => removecart(book._id)}
-                >
-                  Remove from Bag
-                </button>
-              ) : (
-                <button
-                  className={styles.addToBagButton}
-                  style={{ backgroundColor: "black" }}
-                  onClick={() => addtocart(book._id)}
-                >
-                  Add to Bag
-                </button>
-              )}
+              <button
+                className={styles.addToBagButton}
+                onClick={() =>
+                  book.cart ? removecart(book._id) : addtocart(book._id)
+                }
+              >
+                {book.cart ? "Remove from Bag" : "Add to Bag"}
+              </button>
               {book.fav ? (
                 <button
-                  className={styles.favButton}
+                  className={styles.addToFavButton}
                   onClick={() => removefav(book._id)}
                 >
-                  <i className="fa-solid fa-heart" style={{ color: "red" }}></i>
+                  Remove from Favorites
                 </button>
               ) : (
                 <button
-                  className={styles.favButton}
+                  className={styles.addToFavButton}
                   onClick={() => addtofav(book._id)}
                 >
-                  <i className="fa-regular fa-heart"></i>
+                  Add to Favorites
                 </button>
               )}
             </div>
