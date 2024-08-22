@@ -56,77 +56,89 @@ function Singlebook({ Booksdata }) {
   };
 
   const addtofav = async (bookid) => {
-    try {
-      const response = await fetch(`${apiUrl}/function/addfav`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ bookid, token }),
-      });
+    if (localStorage.getItem("isLogin") === "true") {
+      try {
+        const response = await fetch(`${apiUrl}/function/addfav`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bookid, token }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        setFavcount((prev) => prev + 1);
+        setBooks((prevBooks) =>
+          prevBooks.map((book) =>
+            book._id === bookid ? { ...book, fav: true } : book
+          )
+        );
+      } catch (error) {
+        console.error("Error adding to favorites:", error);
       }
-
-      setFavcount((prev) => prev + 1);
-      setBooks((prevBooks) =>
-        prevBooks.map((book) =>
-          book._id === bookid ? { ...book, fav: true } : book
-        )
-      );
-    } catch (error) {
-      console.error("Error adding to favorites:", error);
+    } else {
+      navigate("/signin");
     }
   };
 
   const removefav = async (bookid) => {
-    try {
-      const response = await fetch(`${apiUrl}/function/removefav`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ bookid, token }),
-      });
+    if (localStorage.getItem("isLogin") === "true") {
+      try {
+        const response = await fetch(`${apiUrl}/function/removefav`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bookid, token }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        setFavcount((prev) => prev - 1);
+        setBooks((prevBooks) =>
+          prevBooks.map((book) =>
+            book._id === bookid ? { ...book, fav: false } : book
+          )
+        );
+      } catch (error) {
+        console.error("Error removing from favorites:", error);
       }
-
-      setFavcount((prev) => prev - 1);
-      setBooks((prevBooks) =>
-        prevBooks.map((book) =>
-          book._id === bookid ? { ...book, fav: false } : book
-        )
-      );
-    } catch (error) {
-      console.error("Error removing from favorites:", error);
+    } else {
+      navigate("/signin");
     }
   };
 
   const addtocart = async (bookid) => {
-    try {
-      const response = await fetch(`${apiUrl}/function/addtocart`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ bookid, token }),
-      });
+    if (localStorage.getItem("isLogin") === "true") {
+      try {
+        const response = await fetch(`${apiUrl}/function/addtocart`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bookid, token }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        setFavcart((prev) => prev + 1);
+        setBooks((prevBooks) =>
+          prevBooks.map((book) =>
+            book._id === bookid ? { ...book, cart: true } : book
+          )
+        );
+      } catch (error) {
+        console.error("Error adding to cart:", error);
       }
-
-      setFavcart((prev) => prev + 1);
-      setBooks((prevBooks) =>
-        prevBooks.map((book) =>
-          book._id === bookid ? { ...book, cart: true } : book
-        )
-      );
-    } catch (error) {
-      console.error("Error adding to cart:", error);
+    } else {
+      navigate("/signin");
     }
   };
 
