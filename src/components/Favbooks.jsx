@@ -58,6 +58,7 @@ function Myfavbook({ Booksdata, updateBooksData }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      // Update the favorite books in the parent component
       updateBooksData(bookid);
     } catch (error) {
       console.error("Error removing from favorites:", error);
