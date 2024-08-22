@@ -15,20 +15,6 @@ function Detailbook() {
   const state = location.state;
   const [usercart, setusercart] = useState(false);
   const { favcart, setFavcart } = useContext(AppContext);
-
-  useEffect(async () => {
-    const userdata = await fetch(`${apiUrl}/auth/getuser`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const userData = await userdata.json();
-    const userCart = new Set(userData.cart || []);
-    if (userCart.has(state._id)) {
-      setusercart(true);
-    }
-  }, [addtocart, removecart]);
-
   const addtocart = async (bookid) => {
     try {
       const token = localStorage.getItem("token");
@@ -69,6 +55,19 @@ function Detailbook() {
       console.error("Error removing from cart:", error);
     }
   };
+
+  useEffect(async () => {
+    const userdata = await fetch(`${apiUrl}/auth/getuser`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const userData = await userdata.json();
+    const userCart = new Set(userData.cart || []);
+    if (userCart.has(state._id)) {
+      setusercart(true);
+    }
+  }, [addtocart, removecart]);
   return (
     <>
       <div className={styles.main}>
