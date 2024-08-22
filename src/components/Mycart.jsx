@@ -2,8 +2,9 @@ import React from "react";
 import styles from "./Mycart.module.css";
 import { Link } from "react-router-dom";
 
-function Mycart({ Booksdata, setDelet }) {
+function Mycart({ Booksdata, setDelet, bestseller }) {
   const token = localStorage.getItem("token");
+  const [booktitle, setbooktitle] = useState([bestseller]);
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
@@ -81,7 +82,7 @@ function Mycart({ Booksdata, setDelet }) {
                   <td>
                     <Link
                       to={{ pathname: `/book/${book.title} ` }}
-                      state={{ ...book }}
+                      state={{ ...book, booktitle }}
                     >
                       <img
                         src={book.image}

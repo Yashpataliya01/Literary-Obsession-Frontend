@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../Context/Bookdata";
 import styles from "./Cart.module.css";
 import Mycart from "./Mycart";
 function Cart() {
   const [loading, setLoading] = useState(true);
+  const { bestseller } = useContext(AppContext);
   const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
@@ -40,7 +42,11 @@ function Cart() {
             <div className={styles.circleLoader}></div>
           </div>
         ) : (
-          <Mycart Booksdata={Booksdata} setDelet={setDelet} />
+          <Mycart
+            Booksdata={Booksdata}
+            setDelet={setDelet}
+            bestseller={bestseller}
+          />
         )}
       </div>
     </>

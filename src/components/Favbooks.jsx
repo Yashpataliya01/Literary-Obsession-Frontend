@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../Context/Bookdata";
 import { Link } from "react-router-dom";
 import styles from "./Favbooks.module.css";
 
 function Myfavbook({ Booksdata, updateBooksData }) {
+  const { bestseller } = useContext(AppContext);
+  const booktitle = bestseller;
   const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
