@@ -1,63 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Favbooks.module.css";
-import { AppContext } from "../Context/Bookdata";
 
 function Myfavbook({ Booksdata, setDelet }) {
+  const [loading, setLoading] = useState(false);
+
   const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
       : "/api";
-  const { setFavcount, setFavcart } = useContext(AppContext);
-  const [Books, setBooks] = useState([]);
 
-  const fetchBooks = async () => {
+  const addtocart = async (bookid) => {
+    setLoading(true);
     try {
-      const response = await fetch(`${apiUrl}/books/finduser`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const userdata = await fetch(`${apiUrl}/auth/getuser`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const booksData = await response.json();
-      const userData = await userdata.json();
-
-      const userFavorites = new Set(userData.fav || []);
-      const updatedBooksData = booksData.map((book) => ({
-        ...book,
-        fav: userFavorites.has(book._id),
-        cart: userFavorites.has(book._id),
-      }));
-
-      if (
-        Booksdata.length > 0 &&
-        Booksdata[0].category[0] === Booksdata[Booksdata.length - 1].category[0]
-      ) {
-        setBooks(
-          updatedBooksData.filter((book) =>
-            book.category.includes(Booksdata[0].category[0])
-          )
-        );
-      } else {
-        setBooks(updatedBooksData);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const handleFavorite = async (bookid, isFavorite) => {
-    try {
-      const url = `${apiUrl}/function/${isFavorite ? "removefav" : "addfav"}`;
-      const response = await fetch(url, {
+      const response = await fetch(`${apiUrl}/function/addtocart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,22 +25,18 @@ function Myfavbook({ Booksdata, setDelet }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      setFavcount((prev) => (isFavorite ? prev - 1 : prev + 1));
       setDelet(true);
-      setBooks((prevBooks) =>
-        prevBooks.map((book) =>
-          book._id === bookid ? { ...book, fav: !isFavorite } : book
-        )
-      );
+      setLoading(false);
     } catch (error) {
-      console.error("Error updating favorite status:", error);
+      console.error("Error adding to cart:", error);
+      setLoading(false);
     }
   };
 
-  const handleCart = async (bookid, isInCart) => {
+  const removecart = async (bookid) => {
+    setLoading(true);
     try {
-      const url = `${apiUrl}/function/${isInCart ? "removecart" : "addtocart"}`;
-      const response = await fetch(url, {
+      const response = await fetch(`${apiUrl}/function/removecart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,51 +48,85 @@ function Myfavbook({ Booksdata, setDelet }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      setFavcart((prev) => (isInCart ? prev - 1 : prev + 1));
       setDelet(true);
-      setBooks((prevBooks) =>
-        prevBooks.map((book) =>
-          book._id === bookid ? { ...book, cart: !isInCart } : book
-        )
-      );
+      setLoading(false);
     } catch (error) {
-      console.error("Error updating cart status:", error);
+      console.error("Error removing from cart:", error);
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchBooks();
-  }, [Booksdata]);
+  const removefav = async (bookid) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${apiUrl}/function/removefav`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bookid, token }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      setDelet(true);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error removing from favorites:", error);
+      setLoading(false);
+    }
+  };
 
   return (
     <>
-      {Books.map((book) => (
-        <div className={styles.bookCard} key={book._id}>
-          <img src={book.image} alt="book" className={styles.bookImage} />
-          <div className={styles.bookInfo}>
-            <h2 className={styles.bookTitle}>{book.title}</h2>
-            <p className={styles.bookAuthor}>{book.author}</p>
-            <p className={styles.bookPrice}>₹{book.price}/-</p>
-            <div className={styles.actionButtons}>
-              <button
-                className={styles.addToBagButton}
-                onClick={() => handleCart(book._id, book.cart)}
-              >
-                {book.cart ? "Remove from Bag" : "Add to Bag"}
-              </button>
-              <button
-                className={styles.favButton}
-                onClick={() => handleFavorite(book._id, book.fav)}
-              >
-                <i
-                  className={`fa-${book.fav ? "solid" : "regular"} fa-heart`}
-                  style={{ color: book.fav ? "red" : "black" }}
-                ></i>
-              </button>
+      {Booksdata.length === 0 ? (
+        <p>No favorite books to show.</p>
+      ) : (
+        Booksdata.map((book) => (
+          <div className={styles.bookCard} key={book.title}>
+            <img src={book.image} alt="book" className={styles.bookImage} />
+            <div className={styles.bookInfo}>
+              <h2 className={styles.bookTitle}>{book.title}</h2>
+              <p className={styles.bookAuthor}>{book.author}</p>
+              <p className={styles.bookPrice}>₹{book.price}/-</p>
+              <div className={styles.actionButtons}>
+                {loading ? (
+                  <div>Loading...</div>
+                ) : (
+                  <>
+                    {book.cart ? (
+                      <button
+                        className={styles.addToBagButton}
+                        onClick={() => removecart(book._id)}
+                      >
+                        Remove from Bag
+                      </button>
+                    ) : (
+                      <button
+                        className={styles.addToBagButton}
+                        onClick={() => addtocart(book._id)}
+                      >
+                        Add to Bag
+                      </button>
+                    )}
+                    <button
+                      className={styles.favButton}
+                      onClick={() => removefav(book._id)}
+                    >
+                      <i
+                        className="fa-solid fa-heart"
+                        style={{ color: "red" }}
+                      ></i>
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
     </>
   );
 }
