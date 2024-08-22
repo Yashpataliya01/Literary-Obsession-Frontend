@@ -8,6 +8,7 @@ function Searchbar({ booktitle }) {
   const { allbooks } = useContext(AppContext);
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [inputval, setInputval] = useState("");
+  const [isSuggestionClicked, setIsSuggestionClicked] = useState(false);
 
   const getdata = (e) => {
     const val = e.target.value.toLowerCase();
@@ -24,15 +25,20 @@ function Searchbar({ booktitle }) {
   };
 
   const handleBlur = () => {
-    setTimeout(() => {
+    // Check if a suggestion was clicked, if not, clear suggestions
+    if (!isSuggestionClicked) {
       setFilteredBooks([]);
-    }, 200);
+    }
   };
 
   const suggestionclick = (book) => {
-    console.log("click");
+    setIsSuggestionClicked(true); // Mark that a suggestion was clicked
     setInputval(book.title);
     navigate(`/book/${book.title}`, { state: { ...book, booktitle } });
+
+    // After navigation, clear suggestions and reset the flag
+    setFilteredBooks([]);
+    setIsSuggestionClicked(false);
   };
 
   return (
@@ -48,7 +54,7 @@ function Searchbar({ booktitle }) {
       {filteredBooks.length > 0 && (
         <ul className={styles.suggestions}>
           {filteredBooks.map((book, index) => (
-            <li key={index} onClick={() => suggestionclick(book)}>
+            <li key={index} onMouseDown={() => suggestionclick(book)}>
               <img src={book.image} alt={book.title} />
               <h2>{book.title}</h2>
             </li>
