@@ -63,6 +63,7 @@ function Myfavbook({ Booksdata, setDelet }) {
       }
 
       setFavcount((prev) => prev + 1);
+      setDelet(true);
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
           book._id === bookid ? { ...book, fav: true } : book
@@ -88,6 +89,7 @@ function Myfavbook({ Booksdata, setDelet }) {
       }
 
       setFavcount((prev) => prev - 1);
+      setDelet(true);
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
           book._id === bookid ? { ...book, fav: false } : book
@@ -113,6 +115,7 @@ function Myfavbook({ Booksdata, setDelet }) {
       }
 
       setFavcart((prev) => prev + 1);
+      setDelet(true);
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
           book._id === bookid ? { ...book, cart: true } : book
@@ -138,6 +141,7 @@ function Myfavbook({ Booksdata, setDelet }) {
       }
 
       setFavcart((prev) => prev - 1);
+      setDelet(true);
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
           book._id === bookid ? { ...book, cart: false } : book
