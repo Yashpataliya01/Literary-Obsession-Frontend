@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../Context/Bookdata";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import styles from "./Profile.module.css";
 
@@ -36,7 +37,7 @@ function Profile() {
         setUserorder(data.buyed);
         console.log(data.buyed);
       } catch (error) {
-        setError(error.message);
+        toast.error(error);
       } finally {
         setLoading(false);
       }
@@ -44,8 +45,13 @@ function Profile() {
     fetchUserData();
   }, [navigate]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading)
+    return (
+      <div className={styles.loaderWrapper}>
+        <div className={styles.circleLoader}></div>
+      </div>
+    );
+  if (error) return toast.error(error);
 
   const signout = async () => {
     try {
@@ -65,6 +71,7 @@ function Profile() {
 
   return (
     <div className={styles.profileContainer}>
+      <Toaster />
       <div className={styles.sidebar}>
         <button
           className={`${styles.tabButton} ${
