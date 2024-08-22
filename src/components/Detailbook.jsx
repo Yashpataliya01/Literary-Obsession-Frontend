@@ -5,6 +5,7 @@ import Oldandrare from "./Oldandrare";
 import styles from "./Detailbook.module.css";
 
 function Detailbook() {
+  const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
