@@ -22,7 +22,7 @@ function Allbooks() {
     } else {
       setBooksdata(allbooks);
     }
-  }, [location.state]);
+  }, [location.state, allbooks]);
 
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
@@ -41,8 +41,6 @@ function Allbooks() {
   const handleSortChange = (e) => {
     const selectedSort = e.target.value;
     let sortedBooks = [...Booksdata];
-
-    console.log("Selected sort option:", selectedSort);
 
     switch (selectedSort) {
       case "top":
@@ -70,7 +68,6 @@ function Allbooks() {
         break;
     }
 
-    console.log("Sorted books:", sortedBooks);
     setBooksdata(sortedBooks);
   };
 
@@ -118,7 +115,6 @@ function Allbooks() {
           </select>
         </div>
       </div>
-
       <div className={styles.books}>
         <Singlebook Booksdata={Booksdata} />
       </div>
