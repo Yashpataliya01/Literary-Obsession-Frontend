@@ -60,8 +60,9 @@ function Singlebook({ Booksdata }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Token moved to headers
         },
-        body: JSON.stringify({ bookid, token }),
+        body: JSON.stringify({ bookid }),
       });
 
       if (!response.ok) {
@@ -85,8 +86,9 @@ function Singlebook({ Booksdata }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Token moved to headers
         },
-        body: JSON.stringify({ bookid, token }),
+        body: JSON.stringify({ bookid }),
       });
 
       if (!response.ok) {
@@ -110,8 +112,9 @@ function Singlebook({ Booksdata }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Token moved to headers
         },
-        body: JSON.stringify({ bookid, token }),
+        body: JSON.stringify({ bookid }),
       });
 
       if (!response.ok) {
@@ -135,8 +138,9 @@ function Singlebook({ Booksdata }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Token moved to headers
         },
-        body: JSON.stringify({ bookid, token }),
+        body: JSON.stringify({ bookid }),
       });
 
       if (!response.ok) {
