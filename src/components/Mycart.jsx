@@ -31,7 +31,7 @@ function Mycart({ Booksdata, setDelet }) {
     });
   };
 
-  const removecart = async (bookId) => {
+  const removecart = async (bookid) => {
     setDelet(false);
     try {
       const response = await fetch(`${apiUrl}/function/removecart`, {
@@ -39,7 +39,7 @@ function Mycart({ Booksdata, setDelet }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookId, token }),
+        body: JSON.stringify({ bookid, token }),
       });
 
       if (!response.ok) {
