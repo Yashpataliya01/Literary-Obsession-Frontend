@@ -12,8 +12,21 @@ function Detailbook() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
-  console.log("state", state);
+  const [usercart, setusercart] = useState(false);
   const { favcart, setFavcart } = useContext(AppContext);
+
+  useEffect(async () => {
+    const userdata = await fetch(`${apiUrl}/auth/getuser`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const userData = await userdata.json();
+    const userCart = new Set(userData.cart || []);
+    if (userCart.has(state._id)) {
+      setusercart(true);
+    }
+  }, []);
 
   const addtocart = async (bookid) => {
     try {
@@ -30,6 +43,31 @@ function Detailbook() {
       alert(error);
     }
   };
+
+  const removecart = async (bookid) => {
+    try {
+      const response = await fetch(`${apiUrl}/function/removecart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bookid, token }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      setFavcart((prev) => prev - 1);
+      setBooks((prevBooks) =>
+        prevBooks.map((book) =>
+          book._id === bookid ? { ...book, cart: false } : book
+        )
+      );
+    } catch (error) {
+      console.error("Error removing from cart:", error);
+    }
+  };
   return (
     <>
       <div className={styles.main}>
@@ -43,10 +81,10 @@ function Detailbook() {
             <p className={styles.price}>Rs. {state.price}/-</p>
           </div>
           <div className={styles.btns}>
-            {state.cart ? (
+            {usercart ? (
               <button
                 className={styles.addToCart}
-                onClick={(e) => addtocart(state._id)}
+                onClick={(e) => removecart(state._id)}
               >
                 REMOVE <i className="fa-solid fa-cart-shopping"></i>
               </button>
