@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect } from "react";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  const token = localStorage.getItem("token");
   const apiUrl =
     process.env.NODE_ENV === "production"
       ? "https://literary-obsession-backend-1.onrender.com/api"
@@ -23,8 +24,18 @@ const AppProvider = ({ children }) => {
       try {
         const response = await fetch(`${apiUrl}/books/finduser`, {
           method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         });
-        const userdata = await fetch(`${apiUrl}/auth/getuser`);
+        const userdata = await fetch(`${apiUrl}/auth/getuser`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const booksData = await response.json();
         const userData = await userdata.json();
         setUserData(userData);
