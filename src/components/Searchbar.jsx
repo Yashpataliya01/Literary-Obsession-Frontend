@@ -30,6 +30,7 @@ function Searchbar({ booktitle }) {
   };
 
   const suggestionclick = (book) => {
+    console.log("click");
     setInputval(book.title);
     navigate(`/book/${book.title}`, { state: { ...book, booktitle } });
   };
