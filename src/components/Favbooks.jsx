@@ -57,8 +57,6 @@ function Myfavbook({ Booksdata, updateBooksData }) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
-      // Update the favorite books in the parent component
       updateBooksData(bookid);
     } catch (error) {
       console.error("Error removing from favorites:", error);
@@ -72,7 +70,12 @@ function Myfavbook({ Booksdata, updateBooksData }) {
       ) : (
         Booksdata.map((book) => (
           <div className={styles.bookCard} key={book._id}>
-            <img src={book.image} alt="book" className={styles.bookImage} />
+            <Link
+              to={{ pathname: `/book/${book.title} ` }}
+              state={{ ...book, booktitle }}
+            >
+              <img src={book.image} alt="book" className={styles.bookImage} />
+            </Link>
             <div className={styles.bookInfo}>
               <h2 className={styles.bookTitle}>{book.title}</h2>
               <p className={styles.bookAuthor}>{book.author}</p>
