@@ -42,12 +42,21 @@ function Detailbook() {
             <p className={styles.price}>Rs. {state.price}/-</p>
           </div>
           <div className={styles.btns}>
-            <button
-              className={styles.addToCart}
-              onClick={(e) => addtocart(state._id)}
-            >
-              ADD TO CART <i className="fa-solid fa-cart-shopping"></i>
-            </button>
+            {state.cart ? (
+              <button
+                className={styles.addToCart}
+                onClick={(e) => addtocart(state._id)}
+              >
+                REMOVE <i className="fa-solid fa-cart-shopping"></i>
+              </button>
+            ) : (
+              <button
+                className={styles.addToCart}
+                onClick={(e) => addtocart(state._id)}
+              >
+                ADD TO CART <i className="fa-solid fa-cart-shopping"></i>
+              </button>
+            )}
           </div>
           <div>
             <p className={styles.description}>{state.description}</p>
