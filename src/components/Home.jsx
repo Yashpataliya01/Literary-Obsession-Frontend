@@ -21,7 +21,6 @@ function Home() {
     setcategoryselection(selectedCategory);
     setActiveCategory(selectedCategory);
   };
-
   return (
     <>
       <img src={homeimg} alt="Home" className={styles.homeimg} />

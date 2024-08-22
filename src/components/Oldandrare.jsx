@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -17,6 +17,7 @@ function Oldandrare({ booktitle, name, stylees }) {
       : "/api";
   const { favcount, setFavcount } = useContext(AppContext);
   const navigate = useNavigate();
+  const [userFav, setuserfav] = useState(false);
   useGSAP(() => {
     gsap.from(`.${styles.mySwiper}`, {
       opacity: 0,
@@ -98,6 +99,32 @@ function Oldandrare({ booktitle, name, stylees }) {
     }
   };
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userdata = await fetch(`${apiUrl}/auth/getuser`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const userData = await userdata.json();
+        const userfav = new Set(userData.fav || []);
+        if (userfav.has(booktitle._id)) {
+          setuserfav(true);
+        }
+        booktitle.map((book) => {
+          if (userfav.has(book._id)) {
+            setuserfav(true);
+          }
+        });
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
   return (
     <>
       <div className={styles.oldandrare}>
@@ -137,7 +164,7 @@ function Oldandrare({ booktitle, name, stylees }) {
                 <p>{book.author}</p>
                 <div className={styles.innerdiv}>
                   <h2>₹{book.price} /-</h2>
-                  {book.fav ? (
+                  {userFav ? (
                     <button
                       className={styles.favButton}
                       onClick={(e) => removefav(book._id)}
