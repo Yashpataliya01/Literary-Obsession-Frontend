@@ -6,7 +6,8 @@ import styles from "./Allbooks.module.css";
 
 function Allbooks() {
   const [Booksdata, setBooksdata] = useState([]);
-  const { allbooks } = useContext(AppContext);
+  const { allbooks, categoryselection, setcategoryselection } =
+    useContext(AppContext);
   const location = useLocation();
 
   useEffect(() => {
@@ -25,9 +26,12 @@ function Allbooks() {
 
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
+
     if (selectedCategory === "All Books") {
+      setcategoryselection("All Books");
       setBooksdata(allbooks);
     } else {
+      setcategoryselection(selectedCategory);
       const filtered = allbooks.filter((book) =>
         book.category.includes(selectedCategory)
       );
