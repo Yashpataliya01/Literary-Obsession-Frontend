@@ -31,7 +31,6 @@ function Oldandrare({ booktitle, name, stylees }) {
       scrollTrigger: `.${styles.oldandrare}`,
     });
   });
-
   const addtofav = async (bookid, e) => {
     if (localStorage.getItem("isLogin") === "true") {
       try {
@@ -42,11 +41,9 @@ function Oldandrare({ booktitle, name, stylees }) {
           },
           body: JSON.stringify({ bookid, token }),
         });
-
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
         const res = await response.json();
         setFavcount(favcount + 1);
       } catch (error) {
