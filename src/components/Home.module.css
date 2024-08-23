@@ -14,10 +14,10 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* background-image: url("/hero.png");
+  background-image: url("/hero.png");
   background-size: cover;
   background-position: center;
-  position: relative; */
+  position: relative;
 }
 
 .content {

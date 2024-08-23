@@ -6,8 +6,6 @@ import Bestseller from "./Bestseller";
 import Oldandrare from "./Oldandrare";
 import { AppContext } from "../Context/Bookdata";
 import Searchbar from "./Searchbar";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 
 function Home() {
   const {
@@ -28,12 +26,6 @@ function Home() {
     <>
       <img src={homeimg} alt="Home" className={styles.homeimg} />
       <div className={styles.home}>
-        <LazyLoadImage
-          alt="Hero"
-          effect="blur"
-          src={heroimg}
-          className={styles.heroimg}
-        />
         <div className={styles.content}>
           <div className={styles.heading}>
             <h1 className={styles.title}>
